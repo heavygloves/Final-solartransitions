@@ -1,0 +1,153 @@
+/* COLORS */
+$darkred: #D42C1F;
+$lightred: #DA553C;
+$darkblue: #038786;
+$lightblue: #7EA7A9;
+$darkgreen: #6F9329;
+$lightgreen: #A2B250;
+$yellow: #BF8529;
+$grey: #C0B8B3;
+$black: #222;
+$white: #fdfdfd;
+
+$modelorbit: 1;
+$modelspeed: 10;
+$modeldiameter: 10000;
+
+/* MIXINS */
+@mixin p_orbit($diameter, $speed, $orbitscale: 5) {
+  width: $diameter*$orbitscale;
+  height: $diameter*$orbitscale;
+  left: -$diameter*$orbitscale/2;
+  top: -$diameter*$orbitscale/2;
+  -webkit-animation: spin-right $speed linear infinite;
+  animation: spin-right $speed linear infinite;
+}
+@mixin p_planet($diameter, $color, $planetscale: 20000) {
+  width: $diameter/$planetscale;
+  height: $diameter/$planetscale;
+  background-color: $color;
+  position: relative;
+  top: -$diameter/$planetscale/2;
+  left: -$diameter/$planetscale/2;
+}
+
+/* End of MIXINS */
+
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+html { background-color: $black;}
+
+.sun, .planet, .satellite, .orbit { border-radius: 50%; }
+
+/* Geometry */
+.gravity-well-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.sun {
+  width: 1em;
+  height: 1em;
+  background-color: $yellow;
+  position: relative;
+    top: -.5em;
+    right: .5em;
+  box-shadow:0 0 10px $yellow,
+    0 0 100px $yellow,
+    0 0 200px $yellow,
+    0 0 300px $yellow;
+}
+.orbit {
+  position: absolute;
+  /*border: 1px solid #333;*/
+}
+.gravity-well {
+  position: relative;
+    left: 50%;
+}
+
+/* Look & shape
+- (divided the time for a rotation by 10)
+*/ 
+
+
+
+
+
+
+
+/* Mercury */
+.orbit--mercury { @include p_orbit( 0.467em,  11.6s)}
+.mercury { @include p_planet(2439em, $darkred)}
+
+/* Venus */
+.orbit--venus {   @include p_orbit( 0.7em, 22.47s)}
+.venus {   @include p_planet(6051em, $lightgreen)}
+
+/* Earth */
+.orbit--earth {   @include p_orbit( 1em, 36.526s)}
+.earth {   @include p_planet(6371em, $darkblue)}
+
+.orbit--moon { @include p_orbit( 0.2em,  2.7s, 4)} /* Orbit : 0.00257au, 384399km*/
+.moon { @include p_planet(1737em, $grey, 10000)} 
+
+/* Mars */
+.orbit--mars {    @include p_orbit( 1.5em, 68.6s)}
+.mars {    @include p_planet(3396em, $lightred)}
+
+.orbit--phobos { @include p_orbit( 0.2em,  0.3s, 2)} /* Orbit : 9376km*/
+.phobos {    @include p_planet(2000em, $grey, 30000)} /* Diameter : 11km */
+
+.orbit--deimos { @include p_orbit( 0.3em,  1.2s, 2)} /* Orbit : 23473km*/
+.deimos {    @include p_planet(2000em, $grey, 30000)} /* Diameter : 6.2km */
+
+/* Jupiter */
+.orbit--jupiter { @include p_orbit( 5.2em,   216.6s)}
+.jupiter { @include p_planet(69911em, $lightred, 40000)}
+
+.orbit--io { @include p_orbit( 0.00281em,  1.8s, 1000)} /* 421700km, 1.8days*/
+.io { @include p_planet(3660em, $grey)} 
+
+.orbit--europa { @include p_orbit( 0.0045em,  3.6s, 1000)} /* 671034km, 3.6days*/
+.europa { @include p_planet(3122em, $grey)} 
+
+.orbit--ganymede { @include p_orbit( 0.0072em,  7.2s, 1000)} /* 1070412km, 7.2days*/
+.ganymede { @include p_planet(5262em, $grey)} 
+
+.orbit--callisto { @include p_orbit( 0.0126em,  16.7s, 1000)} /* 1882709km, 16.7days*/
+.callisto { @include p_planet(4820em, $grey)} 
+
+/* Saturn */
+/* 1: draw all saturn's rings, A, B, C, D, E and F */
+/* 2: find a way to accurately represent satellites ? hard hard hard... Look at other's work, how the did it ?*/
+.orbit--saturn {  @include p_orbit( 9.5em,   378.09s)}
+.saturn {  @include p_planet(57000em, $darkgreen, 40000)}
+/* Rings : The rings extend from 6,630 km to 120,700 km above Saturn's equator */
+.saturnring--gap { @include p_planet(63000em, #222, 40000); position: absolute; }
+.saturnring--ring { @include p_planet(120700em, rgba($yellow, 0.8), 40000); position: absolute; }
+
+.orbit--rhea { @include p_orbit( 0.0035em,  4.5s, 1000)} /* 527108km, 4.5days*/
+.rhea { @include p_planet(2530em, $grey)} /* diameter 1530km */
+
+.orbit--titan { @include p_orbit( 0.0082em,  15.95s, 1000)} /* 1221870km, 15.95days*/
+.titan { @include p_planet(5150em, $grey)} /* diameter 5150km */
+
+.orbit--hyperion { @include p_orbit( 0.01em,  21.28s, 1000)} /* 1481009km, 21.28days*/
+.hyperion { @include p_planet(2000em, $grey)} /* diameter 270km */
+
+.orbit--iapetus { @include p_orbit( 0.024em,  79.32s, 1000)} /* 3560820km, 79.32days*/
+.iapetus { @include p_planet(2000em, $grey)} /* diameter 1470km */
+
+/* Uranus */
+.orbit--uranus {  @include p_orbit( 19.2em, 1539.95s)}
+.uranus {  @include p_planet(2.55em, $darkblue)}
+
+/* Neptune */
+.orbit--neptune { @include p_orbit( 30em,   3009.5s)}
+.neptune { @include p_planet(2.47em, $darkblue)}
+
+@keyframes spin-right {
+  100% { transform: rotate(-360deg); }
+  /* animation: spin-right 10s linear infinite; */
+}
+
